@@ -6,7 +6,6 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
 import javassist.CtMethod;
-import javassist.NotFoundException;
 
 public class TestMain {
 
@@ -15,9 +14,9 @@ public class TestMain {
         try {
             ClassPool pool = ClassPool.getDefault();
             // 获取一个Student类的CtClass对象
-            CtClass ctClass = pool.get("com.dn.demo1229_hilt01.javassist.Student");
+            CtClass ctClass = pool.get(Student.class.getName());
             // 设置父类
-            ctClass.setSuperclass(pool.get("com.dn.demo1229_hilt01.javassist.Person"));
+            ctClass.setSuperclass(pool.get(Person.class.getName()));
             // 添加Filed
             ctClass.addField(CtField.make("private String name;", ctClass));
             ctClass.addMethod(CtMethod.make("public void setName(String name){this.name=name;}", ctClass));
@@ -35,7 +34,7 @@ public class TestMain {
             System.out.println("name=" + name);
 
             String fartherName = (String) getFatherNameMethod.invoke(student);
-            System.out.println("fatherName="+fartherName);
+            System.out.println("fatherName=" + fartherName);
 
 
         } catch (Exception e) {
